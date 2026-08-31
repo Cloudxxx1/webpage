@@ -334,47 +334,8 @@ function Navbar({
 function Hero() {
   const reduceMotion = useReducedMotion()
   const heroRef = useRef<HTMLElement>(null)
-  const videoRef = useRef<HTMLVideoElement>(null)
   const avatarVideoRef = useRef<HTMLVideoElement>(null)
-  const [videoReady, setVideoReady] = useState(false)
-  const [videoFailed, setVideoFailed] = useState(false)
   const [avatarFailed, setAvatarFailed] = useState(false)
-
-  useEffect(() => {
-    const hero = heroRef.current
-    const video = videoRef.current
-    if (!hero || !video) return
-
-    if (reduceMotion) {
-      hero.classList.add('is-paused')
-      video.pause()
-      video.currentTime = 0
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const isActive = entry.isIntersecting
-        hero.classList.toggle('is-paused', !isActive || Boolean(reduceMotion))
-
-        if (isActive) {
-          if (!reduceMotion) {
-            void video.play().catch(() => undefined)
-          }
-        } else {
-          video.pause()
-        }
-      },
-      { rootMargin: '20% 0px', threshold: 0 },
-    )
-
-    observer.observe(hero)
-
-    return () => {
-      observer.disconnect()
-      video.pause()
-      hero.classList.remove('is-paused')
-    }
-  }, [reduceMotion, videoFailed])
 
   useEffect(() => {
     const hero = heroRef.current
@@ -486,26 +447,6 @@ function Hero() {
   return (
     <section ref={heroRef} className="hero-section" id="top" aria-labelledby="hero-title">
       <div className="hero-frame">
-        {!videoFailed && (
-          <video
-            ref={videoRef}
-            className={`hero-video ${videoReady ? 'is-ready' : ''}`}
-            src="./hero-background.mp4"
-            autoPlay={!reduceMotion}
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            aria-hidden="true"
-            onCanPlay={(event) => {
-              setVideoReady(true)
-              if (heroRef.current?.classList.contains('is-paused')) {
-                event.currentTarget.pause()
-              }
-            }}
-            onError={() => setVideoFailed(true)}
-          />
-        )}
         <div className="hero-grid" aria-hidden="true" />
         <div className="hero-orb hero-orb--violet" aria-hidden="true" />
         <div className="hero-orb hero-orb--coral" aria-hidden="true" />
@@ -552,6 +493,7 @@ function Hero() {
                   muted
                   playsInline
                   preload="auto"
+                  poster="./media/cartoon-avatar-poster.webp"
                   aria-label="曹义涛的卡通形象打招呼动画"
                   disablePictureInPicture
                   onError={() => setAvatarFailed(true)}
@@ -604,7 +546,7 @@ function About() {
       <div className="content-wrap about-layout">
         <Reveal className="about-portrait">
           <div className="about-portrait__frame">
-            <img src="./profile.jpg" alt="曹义涛个人照片" />
+            <img src="./profile.webp" alt="曹义涛个人照片" decoding="async" />
             <span>PORTRAIT / 2026</span>
           </div>
           <div className="about-portrait__index">01</div>
@@ -771,6 +713,7 @@ function ProjectImageGallery({ media }: { media: ProjectMedia }) {
               src={activeImage.src}
               alt={activeImage.alt}
               loading="lazy"
+              decoding="async"
               draggable={false}
               onError={() =>
                 setFailedSources((current) =>
@@ -843,15 +786,12 @@ function ProjectMediaViewer({ project }: { project: Project }) {
           return
         }
 
-        if (activeMedia.type === 'video' && activeMedia.autoPlay) {
-          void videoRef.current?.play().catch(() => undefined)
-        }
       },
       { threshold: 0.22 },
     )
     observer.observe(viewer)
     return () => observer.disconnect()
-  }, [activeMedia.autoPlay, activeMedia.id, activeMedia.type, pauseVideo])
+  }, [activeMedia.id, pauseVideo])
 
   const changeMedia = (index: number) => {
     if (index === activeIndex) return
@@ -866,8 +806,12 @@ function ProjectMediaViewer({ project }: { project: Project }) {
     const video = videoRef.current
     if (!video) return
     if (video.paused) {
-      await video.play()
-      setIsPlaying(true)
+      try {
+        await video.play()
+        setIsPlaying(true)
+      } catch {
+        setIsPlaying(false)
+      }
     } else {
       video.pause()
       setIsPlaying(false)
@@ -914,11 +858,10 @@ function ProjectMediaViewer({ project }: { project: Project }) {
                 ref={videoRef}
                 src={activeMedia.src}
                 poster={activeMedia.poster}
-                autoPlay={activeMedia.autoPlay}
                 loop={activeMedia.loop}
                 muted
                 playsInline
-                preload={activeMedia.autoPlay ? 'auto' : 'metadata'}
+                preload="none"
                 aria-label={activeMedia.alt}
                 onLoadedMetadata={(event) => {
                   const playbackRate = activeMedia.playbackRate ?? 1
@@ -936,7 +879,7 @@ function ProjectMediaViewer({ project }: { project: Project }) {
           </motion.div>
         </AnimatePresence>
 
-        {hasSource && activeMedia.type === 'video' && !activeMedia.autoPlay && (
+        {hasSource && activeMedia.type === 'video' && (
           <div className="video-controls">
             <button type="button" onClick={togglePlayback} aria-label={isPlaying ? '暂停视频' : '播放视频'}>
               {isPlaying ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
@@ -1183,6 +1126,7 @@ function CertificateVisual({ certificate, large = false }: { certificate: Certif
         src={certificate.src}
         alt={certificate.alt}
         loading={large ? 'eager' : 'lazy'}
+        decoding="async"
         onError={() => setFailed(true)}
       />
     )

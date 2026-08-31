@@ -13,7 +13,6 @@ export interface ProjectMedia {
   caption: string
   src: string
   poster?: string
-  autoPlay?: boolean
   loop?: boolean
   playbackRate?: number
   alt: string
@@ -116,11 +115,11 @@ export const projects: Project[] = [
         type: 'image',
         title: '场景与任务',
         caption: '展示复杂低照度道路场景以及可见光、红外输入的任务特征。',
-        src: './media/projects/fusion/paper_img1.png',
+        src: './media/projects/fusion/paper_img1.webp',
         alt: '低照度道路场景与可见光、红外输入任务示意',
         images: [
           {
-            src: './media/projects/fusion/paper_img1.png',
+            src: './media/projects/fusion/paper_img1.webp',
             alt: '低照度道路场景与可见光、红外输入任务示意',
             surface: 'theme',
           },
@@ -131,16 +130,16 @@ export const projects: Project[] = [
         type: 'image',
         title: '网络结构',
         caption: '展示照明判别增强子网络与跨模态语义引导调制模块。',
-        src: './media/projects/fusion/paper_img6.png',
+        src: './media/projects/fusion/paper_img6.webp',
         alt: '可见红外图像融合网络结构图',
         images: [
           {
-            src: './media/projects/fusion/paper_img6.png',
+            src: './media/projects/fusion/paper_img6.webp',
             alt: '照明判别与增强子网络结构图',
             surface: 'paper',
           },
           {
-            src: './media/projects/fusion/paper_img7.png',
+            src: './media/projects/fusion/paper_img7.webp',
             alt: '跨模态语义引导调制模块结构图',
             surface: 'paper',
           },
@@ -151,26 +150,26 @@ export const projects: Project[] = [
         type: 'image',
         title: '结果对比',
         caption: '展示不同方法在多组典型低照度场景中的融合结果对比。',
-        src: './media/projects/fusion/paper_img2.png',
+        src: './media/projects/fusion/paper_img2.webp',
         alt: '不同图像融合方法结果对比',
         images: [
           {
-            src: './media/projects/fusion/paper_img2.png',
+            src: './media/projects/fusion/paper_img2.webp',
             alt: '第一组低照度场景图像融合结果对比',
             surface: 'theme',
           },
           {
-            src: './media/projects/fusion/paper_img3.png',
+            src: './media/projects/fusion/paper_img3.webp',
             alt: '第二组低照度场景图像融合结果对比',
             surface: 'theme',
           },
           {
-            src: './media/projects/fusion/paper_img4.png',
+            src: './media/projects/fusion/paper_img4.webp',
             alt: '第三组低照度场景图像融合结果对比',
             surface: 'theme',
           },
           {
-            src: './media/projects/fusion/paper_img5.png',
+            src: './media/projects/fusion/paper_img5.webp',
             alt: '第四组低照度场景图像融合结果对比',
             surface: 'theme',
           },
@@ -212,7 +211,7 @@ export const projects: Project[] = [
         title: '设备一',
         caption: '车载设备双模态检测与跟踪演示。',
         src: './media/projects/camouflage/vehicle.mp4',
-        autoPlay: true,
+        poster: './media/projects/camouflage/vehicle-poster.webp',
         loop: true,
         alt: '设备一车载双模态检测与跟踪演示视频',
       },
@@ -222,7 +221,7 @@ export const projects: Project[] = [
         title: '设备二',
         caption: '机载设备双模态检测与跟踪演示。',
         src: './media/projects/camouflage/airborne.mp4',
-        autoPlay: true,
+        poster: './media/projects/camouflage/airborne-poster.webp',
         loop: true,
         playbackRate: 1,
         alt: '设备二机载双模态检测与跟踪演示视频',
@@ -259,21 +258,21 @@ export const projects: Project[] = [
         type: 'image',
         title: '光电平台',
         caption: '展示无人机光电检测系统的设备平台与现场部署形态。',
-        src: './media/projects/drone/platform-01.png',
+        src: './media/projects/drone/platform-01.webp',
         alt: '无人机光电检测系统设备平台',
         images: [
           {
-            src: './media/projects/drone/platform-01.png',
+            src: './media/projects/drone/platform-01.webp',
             alt: '无人机光电检测系统设备平台一',
             surface: 'theme',
           },
           {
-            src: './media/projects/drone/platform-02.png',
+            src: './media/projects/drone/platform-02.webp',
             alt: '无人机光电检测系统设备平台二',
             surface: 'theme',
           },
           {
-            src: './media/projects/drone/platform-03.png',
+            src: './media/projects/drone/platform-03.webp',
             alt: '无人机光电检测系统设备平台三',
             surface: 'theme',
           },
@@ -285,7 +284,7 @@ export const projects: Project[] = [
         title: '联合演示',
         caption: '展示无人机检测、跟踪与云台联合系统的软件运行界面。',
         src: './media/projects/drone/joint-demo.mp4',
-        autoPlay: true,
+        poster: './media/projects/drone/joint-demo-poster.webp',
         loop: true,
         alt: '无人机检测、跟踪与云台联合演示视频',
       },
@@ -344,7 +343,7 @@ export const projects: Project[] = [
         type: 'image',
         title: '检测样品',
         caption: '展示设备进行视觉检测和计数的橡胶圈样品。',
-        src: './media/projects/line-scan/sample.jpg',
+        src: './media/projects/line-scan/sample.webp',
         alt: '工业线扫相机检测的橡胶圈样品',
       },
       {
@@ -353,7 +352,7 @@ export const projects: Project[] = [
         title: '上位机',
         caption: '展示产品计数包装设备 Qt 上位机软件的运行过程。',
         src: './media/projects/line-scan/hmi-software.mp4',
-        autoPlay: true,
+        poster: './media/projects/line-scan/hmi-software-poster.webp',
         loop: true,
         alt: '产品计数包装设备 Qt 上位机软件演示视频',
       },
@@ -363,7 +362,7 @@ export const projects: Project[] = [
         title: '设备演示',
         caption: '展示工业线扫相机计数包装设备的现场运行过程。',
         src: './media/projects/line-scan/device-demo.mp4',
-        autoPlay: true,
+        poster: './media/projects/line-scan/device-demo-poster.webp',
         loop: true,
         alt: '工业线扫相机计数包装设备现场运行演示视频',
       },
@@ -476,7 +475,7 @@ export const certificates: Certificate[] = [
     title: '优秀毕业生证书',
     category: 'HONOR',
     year: '2024',
-    src: './media/certificates/outstanding-graduate.jpg',
+    src: './media/certificates/outstanding-graduate.webp',
     alt: '优秀毕业生证书',
   },
   {
@@ -484,7 +483,7 @@ export const certificates: Certificate[] = [
     title: '2020—2021 学年三好学生证书',
     category: 'HONOR',
     year: '2020—2021',
-    src: './media/certificates/merit-student-2020-2021.jpg',
+    src: './media/certificates/merit-student-2020-2021.webp',
     alt: '2020—2021 学年三好学生证书',
   },
   {
@@ -492,7 +491,7 @@ export const certificates: Certificate[] = [
     title: '2021—2022 学年三好学生证书',
     category: 'HONOR',
     year: '2021—2022',
-    src: './media/certificates/merit-student-2021-2022.jpg',
+    src: './media/certificates/merit-student-2021-2022.webp',
     alt: '2021—2022 学年三好学生证书',
   },
   {
@@ -500,7 +499,7 @@ export const certificates: Certificate[] = [
     title: '2022—2023 学年三好学生证书',
     category: 'HONOR',
     year: '2022—2023',
-    src: './media/certificates/merit-student-2022-2023.jpg',
+    src: './media/certificates/merit-student-2022-2023.webp',
     alt: '2022—2023 学年三好学生证书',
   },
   {
@@ -508,7 +507,7 @@ export const certificates: Certificate[] = [
     title: '授权发明专利证书',
     category: 'PATENT',
     year: '发明专利',
-    src: './media/certificates/patent-certificate.jpg',
+    src: './media/certificates/patent-certificate.webp',
     alt: '授权发明专利证书',
   },
   {
@@ -516,7 +515,7 @@ export const certificates: Certificate[] = [
     title: '2020—2021 学年第一学期奖学金证书',
     category: 'SCHOLARSHIP',
     year: '2020—2021',
-    src: './media/certificates/scholarship-2020-2021-1.jpg',
+    src: './media/certificates/scholarship-2020-2021-1.webp',
     alt: '2020—2021 学年第一学期奖学金证书',
   },
   {
@@ -524,7 +523,7 @@ export const certificates: Certificate[] = [
     title: '2020—2021 学年第二学期奖学金证书',
     category: 'SCHOLARSHIP',
     year: '2020—2021',
-    src: './media/certificates/scholarship-2020-2021-2.jpg',
+    src: './media/certificates/scholarship-2020-2021-2.webp',
     alt: '2020—2021 学年第二学期奖学金证书',
   },
   {
@@ -532,7 +531,7 @@ export const certificates: Certificate[] = [
     title: '2021—2022 学年第一学期奖学金证书',
     category: 'SCHOLARSHIP',
     year: '2021—2022',
-    src: './media/certificates/scholarship-2021-2022-1.jpg',
+    src: './media/certificates/scholarship-2021-2022-1.webp',
     alt: '2021—2022 学年第一学期奖学金证书',
   },
   {
@@ -540,7 +539,7 @@ export const certificates: Certificate[] = [
     title: '2021—2022 学年第二学期奖学金证书',
     category: 'SCHOLARSHIP',
     year: '2021—2022',
-    src: './media/certificates/scholarship-2021-2022-2.jpg',
+    src: './media/certificates/scholarship-2021-2022-2.webp',
     alt: '2021—2022 学年第二学期奖学金证书',
   },
   {
@@ -548,7 +547,7 @@ export const certificates: Certificate[] = [
     title: '2022—2023 学年第一学期奖学金证书',
     category: 'SCHOLARSHIP',
     year: '2022—2023',
-    src: './media/certificates/scholarship-2022-2023-1.jpg',
+    src: './media/certificates/scholarship-2022-2023-1.webp',
     alt: '2022—2023 学年第一学期奖学金证书',
   },
   {
@@ -556,7 +555,7 @@ export const certificates: Certificate[] = [
     title: '2022—2023 学年第二学期奖学金证书',
     category: 'SCHOLARSHIP',
     year: '2022—2023',
-    src: './media/certificates/scholarship-2022-2023-2.jpg',
+    src: './media/certificates/scholarship-2022-2023-2.webp',
     alt: '2022—2023 学年第二学期奖学金证书',
   },
   {
@@ -564,7 +563,7 @@ export const certificates: Certificate[] = [
     title: '2023—2024 学年第一学期奖学金证书',
     category: 'SCHOLARSHIP',
     year: '2023—2024',
-    src: './media/certificates/scholarship-2023-2024-1.jpg',
+    src: './media/certificates/scholarship-2023-2024-1.webp',
     alt: '2023—2024 学年第一学期奖学金证书',
   },
   {
@@ -572,7 +571,7 @@ export const certificates: Certificate[] = [
     title: '2023—2024 学年第二学期奖学金证书',
     category: 'SCHOLARSHIP',
     year: '2023—2024',
-    src: './media/certificates/scholarship-2023-2024-2.jpg',
+    src: './media/certificates/scholarship-2023-2024-2.webp',
     alt: '2023—2024 学年第二学期奖学金证书',
   },
   {
@@ -580,7 +579,7 @@ export const certificates: Certificate[] = [
     title: '计算机软件著作权登记证书（一）',
     category: 'SOFTWARE COPYRIGHT',
     year: '软件著作权',
-    src: './media/certificates/software-copyright-1.jpg',
+    src: './media/certificates/software-copyright-1.webp',
     alt: '计算机软件著作权登记证书一',
   },
   {
@@ -588,7 +587,7 @@ export const certificates: Certificate[] = [
     title: '计算机软件著作权登记证书（二）',
     category: 'SOFTWARE COPYRIGHT',
     year: '软件著作权',
-    src: './media/certificates/software-copyright-2.jpg',
+    src: './media/certificates/software-copyright-2.webp',
     alt: '计算机软件著作权登记证书二',
   },
 ]
