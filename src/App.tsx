@@ -27,7 +27,6 @@ import {
   Mail,
   MapPin,
   Maximize2,
-  Pause,
   Play,
   ScanLine,
   Sparkles,
@@ -763,8 +762,6 @@ function ProjectMediaViewer({ project }: { project: Project }) {
   const [activeIndex, setActiveIndex] = useState(0)
   const [mediaFailed, setMediaFailed] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration] = useState(0)
   const videoRef = useRef<HTMLVideoElement>(null)
   const viewerRef = useRef<HTMLDivElement>(null)
   const activeMedia = project.media[activeIndex]
@@ -797,8 +794,6 @@ function ProjectMediaViewer({ project }: { project: Project }) {
     if (index === activeIndex) return
     pauseVideo(true)
     setMediaFailed(false)
-    setCurrentTime(0)
-    setDuration(0)
     setActiveIndex(index)
   }
 
@@ -816,12 +811,6 @@ function ProjectMediaViewer({ project }: { project: Project }) {
       video.pause()
       setIsPlaying(false)
     }
-  }
-
-  const setProgress = (value: number) => {
-    if (!videoRef.current) return
-    videoRef.current.currentTime = value
-    setCurrentTime(value)
   }
 
   const hasSource =
@@ -862,14 +851,20 @@ function ProjectMediaViewer({ project }: { project: Project }) {
                 muted
                 playsInline
                 preload="none"
-                aria-label={activeMedia.alt}
+                tabIndex={0}
+                aria-label={`${activeMedia.alt}，点击播放或暂停`}
+                onClick={() => void togglePlayback()}
+                onKeyDown={(event) => {
+                  if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault()
+                    void togglePlayback()
+                  }
+                }}
                 onLoadedMetadata={(event) => {
                   const playbackRate = activeMedia.playbackRate ?? 1
                   event.currentTarget.defaultPlaybackRate = playbackRate
                   event.currentTarget.playbackRate = playbackRate
-                  setDuration(event.currentTarget.duration)
                 }}
-                onTimeUpdate={(event) => setCurrentTime(event.currentTarget.currentTime)}
                 onPlay={() => setIsPlaying(true)}
                 onPause={() => setIsPlaying(false)}
                 onEnded={() => setIsPlaying(false)}
@@ -879,22 +874,15 @@ function ProjectMediaViewer({ project }: { project: Project }) {
           </motion.div>
         </AnimatePresence>
 
-        {hasSource && activeMedia.type === 'video' && (
-          <div className="video-controls">
-            <button type="button" onClick={togglePlayback} aria-label={isPlaying ? '暂停视频' : '播放视频'}>
-              {isPlaying ? <Pause aria-hidden="true" /> : <Play aria-hidden="true" />}
-            </button>
-            <input
-              type="range"
-              min="0"
-              max={duration || 1}
-              step="0.05"
-              value={currentTime}
-              aria-label="视频播放进度"
-              onChange={(event) => setProgress(Number(event.target.value))}
-            />
-            <span>{Math.round(currentTime)}s</span>
-          </div>
+        {hasSource && activeMedia.type === 'video' && !isPlaying && (
+          <button
+            className="video-play-toggle"
+            type="button"
+            onClick={() => void togglePlayback()}
+            aria-label="播放视频"
+          >
+            <Play aria-hidden="true" />
+          </button>
         )}
       </div>
 

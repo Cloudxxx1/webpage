@@ -1425,6 +1425,15 @@ button {
   object-fit: cover;
 }
 
+.project-media__content > video {
+  cursor: pointer;
+}
+
+.project-media__content > video:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.78);
+  outline-offset: -5px;
+}
+
 .project-image-gallery {
   position: relative;
   width: 100%;
@@ -1749,48 +1758,50 @@ button {
   }
 }
 
-.video-controls {
+.video-play-toggle {
   position: absolute;
-  right: 14px;
-  bottom: 14px;
-  left: 14px;
+  top: 50%;
+  left: 50%;
   z-index: 5;
   display: grid;
-  grid-template-columns: 38px 1fr auto;
-  align-items: center;
-  gap: 10px;
-  padding: 8px;
-  background: rgba(8, 2, 14, 0.84);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 11px;
-  backdrop-filter: blur(18px);
-}
-
-.video-controls button {
-  display: grid;
-  width: 34px;
-  height: 34px;
+  width: 74px;
+  height: 74px;
   place-items: center;
-  color: #09030f;
-  background: var(--gradient);
-  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.9);
+  background: rgba(12, 7, 20, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 50%;
+  box-shadow:
+    0 12px 38px rgba(0, 0, 0, 0.3),
+    inset 0 0 24px rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(10px);
+  transform: translate(-50%, -50%);
   cursor: pointer;
+  transition:
+    color 180ms ease,
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
 }
 
-.video-controls button svg {
-  width: 14px;
+.video-play-toggle:hover {
+  color: #fff;
+  background: rgba(18, 9, 28, 0.58);
+  border-color: rgba(255, 255, 255, 0.7);
+  transform: translate(-50%, -50%) scale(1.06);
 }
 
-.video-controls input {
-  width: 100%;
-  accent-color: var(--accent);
+.video-play-toggle:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.92);
+  outline-offset: 4px;
 }
 
-.video-controls span {
-  min-width: 32px;
-  color: var(--subtle);
-  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-  font-size: 8px;
+.video-play-toggle svg {
+  width: 27px;
+  height: 27px;
+  margin-left: 4px;
+  fill: currentColor;
+  stroke-width: 1.8;
 }
 
 .project-media__caption {
@@ -3453,7 +3464,6 @@ button {
 .about-portrait__frame > span,
 .project-media__topbar,
 .media-placeholder > span,
-.video-controls span,
 .project-media__caption span,
 .media-thumbnails button > span,
 .media-thumbnails button strong,
